@@ -179,7 +179,7 @@ modify_statsbomb_events_dataframe <- function(df) {
     "related_events"
   )
 
-  df <- df[, (colnames(df) %in% columns)]
+  df <- df[, colnames(df) %in% columns, drop = FALSE]
 
 
   return(df)
