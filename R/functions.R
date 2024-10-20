@@ -1,19 +1,3 @@
-# Hello, world!
-#
-# This is an example function named 'hello'
-# which prints 'Hello, world!'.
-#
-# You can learn more about package authoring with RStudio at:
-#
-#   https://r-pkgs.org
-#
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Install Package:           'Ctrl + Shift + B'
-#   Check Package:             'Ctrl + Shift + E'
-#   Test Package:              'Ctrl + Shift + T'
-
-
 #' Cleans a dataframe, removing '*', replacing spaces with '_' and changing all text to lower case.
 #'
 #' @param df A dataframe.
@@ -31,9 +15,6 @@ lowercase_clean_dataframe <- function(df) {
   })
   return(df)
 }
-
-
-
 
 #' Changes a StatsBomb events dataframe, condensing the information in columns into the "type_name" column.
 #'
@@ -154,7 +135,7 @@ modify_statsbomb_events_dataframe <- function(df) {
     "match_id",
     "period",
     "timestamp",
-    "type.name",
+    "type_name",
     "location",
     "event.end_location",
     "play_pattern.name",
