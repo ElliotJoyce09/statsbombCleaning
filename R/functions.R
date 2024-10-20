@@ -173,6 +173,5 @@ join_360_data <- function(df1, df2) {
     select(-match_id.y) %>%
     rename(event_location = location) %>%
     unnest(freeze_frame) %>%
-    mutate(ff_location.x = as.numeric(map(location, 1)),
-           ff_location.y = as.numeric(map(location, 2)))
+    select(-c(competition_id, season_id))
 }
