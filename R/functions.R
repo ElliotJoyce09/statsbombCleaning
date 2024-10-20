@@ -106,7 +106,7 @@ modify_statsbomb_events_dataframe <- function(df) {
   )
 
   df[["event.end_location"]][shot_condition] <- df[["shot.end_location"]][shot_condition]
-  df[["other_player.name"]][shot_condition] <- df[["player.name.GK"]][shot_condition]
+  df[["other_player.name"]][shot_condition] <- df[["player.name.gk"]][shot_condition]
 
   block_condition <- df[["type.name"]] %in% "block"
   df[["type.name"]][block_condition] <- paste0(
