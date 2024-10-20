@@ -165,3 +165,14 @@ modify_statsbomb_events_dataframe <- function(df) {
 
   return(df)
 }
+
+join_360_data <- function(df1, df2) {
+  df1 %>%
+    left_join(df2, by = c("id" = "id")) %>%
+    rename(match_id = match_id.x) %>%
+    select(-match_id.y) %>%
+    rename(event_location = location) %>%
+    unnest(freeze_frame) %>%
+    mutate(ff_location.x = as.numeric(map(location, 1)),
+           ff_location.y = as.numeric(map(location, 2)))
+}
