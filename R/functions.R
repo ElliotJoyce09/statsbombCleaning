@@ -16,6 +16,40 @@ lowercase_clean_dataframe <- function(df) {
   return(df)
 }
 
+#' Changes the timestamp column of a StatsBomb dataframe to make it easier to plot time as a dependent variable, also removing penalties.
+#'
+#' @param df A StatsBomb event dataframe, returned from free_allevents(), in the 'StatsBombR' package.
+#' @returns A dataframe.
+#' @examples
+#' change_timestamp(df)
+change_timestamp <- function(df) {
+  df <- df %>%
+    mutate(timestamp = as_hms(timestamp)) %>%
+    filter(period != 5) %>%
+    group_by(match_id) %>%
+    mutate(
+      max_timestamp_1 = ifelse(any(period == 1), max(timestamp[period == 1], na.rm = TRUE), NA_real_),
+      timestamp = ifelse(period == 2, as_hms(timestamp + max_timestamp_1), timestamp)
+    ) %>%
+    select(-max_timestamp_1)
+  df <- df %>%
+    group_by(match_id) %>%
+    mutate(
+      max_timestamp_2 = ifelse(any(period == 2), max(timestamp[period == 2], na.rm = TRUE), NA_real_),
+      timestamp = ifelse(period == 3, as_hms(timestamp + max_timestamp_2), timestamp)
+    ) %>%
+    select(-max_timestamp_2)
+
+  df <- df %>%
+    group_by(match_id) %>%
+    mutate(
+      max_timestamp_3 = ifelse(any(period == 3), max(timestamp[period == 3], na.rm = TRUE), NA_real_),
+      timestamp = ifelse(period == 4, as_hms(timestamp + max_timestamp_3), timestamp)
+    ) %>%
+    select(-max_timestamp_3)
+  return(df)
+}
+
 #' Changes a StatsBomb events dataframe, condensing the information in columns into the "type_name" column.
 #'
 #' @param df A StatsBomb event dataframe, returned from free_allevents(), in the 'StatsBombR' package.
